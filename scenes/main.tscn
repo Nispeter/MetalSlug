@@ -1,3 +1,55 @@
-[gd_scene format=3 uid="uid://b2nmnwovc316j"]
+[gd_scene load_steps=7 format=3 uid="uid://b2nmnwovc316j"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_hq3rn"]
+[ext_resource type="Texture2D" uid="uid://bq85itqu1d062" path="res://assets/icon.svg" id="2_n27fh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_afhr3"]
+size = Vector2(1316, 120)
+
+[sub_resource type="Gradient" id="Gradient_8vi5t"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_o3yob"]
+gradient = SubResource("Gradient_8vi5t")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5fflx"]
 
 [node name="Main" type="Node2D"]
+
+[node name="place_holder_map" type="Node" parent="."]
+
+[node name="ground" type="StaticBody2D" parent="place_holder_map"]
+position = Vector2(435, 530)
+
+[node name="ground" type="CollisionShape2D" parent="place_holder_map/ground"]
+shape = SubResource("RectangleShape2D_afhr3")
+
+[node name="Sprite2D" type="Sprite2D" parent="place_holder_map/ground/ground"]
+rotation = 1.5708
+scale = Vector2(1.84, 20.561)
+texture = SubResource("GradientTexture2D_o3yob")
+
+[node name="pilar" type="StaticBody2D" parent="place_holder_map"]
+position = Vector2(435, 530)
+
+[node name="elevated_ground" type="CollisionShape2D" parent="place_holder_map/pilar"]
+position = Vector2(283, -138)
+rotation = -1.5708
+scale = Vector2(0.12, 1)
+shape = SubResource("RectangleShape2D_afhr3")
+
+[node name="Sprite2D" type="Sprite2D" parent="place_holder_map/pilar/elevated_ground"]
+rotation = 0.000736453
+scale = Vector2(20.5606, 1.83958)
+texture = SubResource("GradientTexture2D_o3yob")
+
+[node name="player" type="CharacterBody2D" parent="."]
+position = Vector2(183, 408)
+scale = Vector2(1.6, 1.96)
+script = ExtResource("1_hq3rn")
+
+[node name="Sprite2D" type="Sprite2D" parent="player"]
+scale = Vector2(0.159999, 0.239999)
+texture = ExtResource("2_n27fh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
+shape = SubResource("CapsuleShape2D_5fflx")
