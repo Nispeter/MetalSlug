@@ -53,3 +53,14 @@ texture = ExtResource("2_n27fh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
 shape = SubResource("CapsuleShape2D_5fflx")
+
+[node name="Controls" type="Label" parent="."]
+offset_left = 138.0
+offset_top = 122.0
+offset_right = 600.0
+offset_bottom = 223.0
+scale = Vector2(1.55501, 1.5352)
+text = "A,D : horizontal movement
+space: jump
+shift: dash
+features: coyote jump, wall jump, air controll & jump buffer "
