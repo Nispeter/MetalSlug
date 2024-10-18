@@ -15,6 +15,19 @@ gradient = SubResource("Gradient_8vi5t")
 
 [node name="Main" type="Node2D"]
 
+[node name="Controls" type="Label" parent="."]
+offset_left = 71.0
+offset_top = 156.0
+offset_right = 421.0
+offset_bottom = 309.0
+scale = Vector2(1.39519, 1.38197)
+text = "A,D : horizontal movement
+space: jump
+shift: dash
+features: coyote jump, wall jump, air controll, 
+jump buffer, air jumps & corner climbing
+camera: smoothing and drag"
+
 [node name="place_holder_map" type="Node" parent="."]
 
 [node name="ground" type="StaticBody2D" parent="place_holder_map"]
@@ -54,13 +67,11 @@ texture = ExtResource("2_n27fh")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
 shape = SubResource("CapsuleShape2D_5fflx")
 
-[node name="Controls" type="Label" parent="."]
-offset_left = 138.0
-offset_top = 122.0
-offset_right = 600.0
-offset_bottom = 223.0
-scale = Vector2(1.55501, 1.5352)
-text = "A,D : horizontal movement
-space: jump
-shift: dash
-features: coyote jump, wall jump, air controll & jump buffer "
+[node name="Camera2D" type="Camera2D" parent="player"]
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.05
+drag_top_margin = 0.05
+drag_right_margin = 0.05
+drag_bottom_margin = 0.05
