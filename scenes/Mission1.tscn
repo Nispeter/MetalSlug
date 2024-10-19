@@ -1,0 +1,77 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqefg68v16li6"]
+
+[ext_resource type="Texture2D" uid="uid://dt7776fj3iw4c" path="res://assets/sprites/Neo Geo NGCD - Metal Slug - Mission 1.png" id="1_saoux"]
+[ext_resource type="Texture2D" uid="uid://pfyhdn813b4k" path="res://assets/sprites/Neo Geo NGCD - Metal Slug - Mission 1 FIXED.png" id="2_56dwg"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Bg0" type="Sprite2D" parent="."]
+position = Vector2(4964, 263)
+scale = Vector2(2.39041, 2.39041)
+texture = ExtResource("1_saoux")
+vframes = 11
+frame = 4
+
+[node name="Arboles0" type="Sprite2D" parent="."]
+position = Vector2(5187, 203)
+scale = Vector2(2.39, 2.39)
+texture = ExtResource("2_56dwg")
+hframes = 13
+vframes = 11
+
+[node name="Arboles1" type="Sprite2D" parent="."]
+position = Vector2(5938, 203)
+scale = Vector2(2.39, 2.39)
+texture = ExtResource("2_56dwg")
+hframes = 13
+vframes = 11
+frame = 1
+
+[node name="Arboles2" type="Sprite2D" parent="."]
+position = Vector2(6701, 203)
+scale = Vector2(2.39, 2.39)
+texture = ExtResource("2_56dwg")
+hframes = 13
+vframes = 11
+frame = 2
+
+[node name="Arboles3" type="Sprite2D" parent="."]
+position = Vector2(7465, 203)
+scale = Vector2(2.39, 2.39)
+texture = ExtResource("2_56dwg")
+hframes = 13
+vframes = 11
+frame = 3
+
+[node name="FixCieloBarco" type="Sprite2D" parent="."]
+position = Vector2(7898, -13)
+scale = Vector2(4.38803, 5.52259)
+texture = ExtResource("1_saoux")
+hframes = 35
+vframes = 41
+frame = 252
+
+[node name="Barco" type="Sprite2D" parent="."]
+position = Vector2(7785, 353)
+scale = Vector2(2.39, 2.39)
+texture = ExtResource("2_56dwg")
+hframes = 13
+vframes = 6
+frame = 20
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Barco"]
+
+[node name="Arboles4" type="Sprite2D" parent="."]
+position = Vector2(7516, 201)
+scale = Vector2(2.39, 2.39)
+texture = ExtResource("2_56dwg")
+hframes = 31
+vframes = 11
+frame = 8
+
+[node name="BgSubmarino" type="Sprite2D" parent="."]
+position = Vector2(4965, 263)
+scale = Vector2(2.39, 2.39)
+texture = ExtResource("2_56dwg")
+vframes = 11
+frame = 4
