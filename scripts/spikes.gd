@@ -1,0 +1,1 @@
+extends damage_dealer

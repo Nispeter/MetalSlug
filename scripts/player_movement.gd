@@ -1,6 +1,9 @@
-extends CharacterBody2D
+extends Node
+
+var player_body: CharacterBody2D
 
 # Movement parameters
+@export var advanced_movement : bool = true
 @export var speed: float = 200.0					#WARNING: on low values, edge detecion explodes
 @export var jump_force: float = 500.0
 @export var gravity: float = 2000.0
@@ -12,7 +15,7 @@ extends CharacterBody2D
 @export var coyote_time_duration: float = 0.2
 @export var jump_buffer_duration: float = 10		#NOTE: modify for timed jumps
 @export var variable_jump_height: float = 0.6
-@export var max_jumps: int = 2  
+@export var max_jumps: int = 1
 
 # Wall jump parameters
 @export var wall_jump_force: Vector2 = Vector2(300, -400)
@@ -43,12 +46,15 @@ var is_on_ground: bool = false
 
 signal on_dash
 
-func _physics_process(delta: float) -> void:
-	if not is_on_floor() and not is_dashing:
-		velocity.y += gravity * delta
-		velocity.y = min(velocity.y, max_fall_speed)
+func _ready() -> void:
+	player_body = get_parent() as CharacterBody2D
 
-	if is_on_floor():
+func _physics_process(delta: float) -> void:
+	if not player_body.is_on_floor() and not is_dashing:
+		player_body.velocity.y += gravity * delta
+		player_body.velocity.y = min(player_body.velocity.y, max_fall_speed)
+
+	if player_body.is_on_floor():
 		coyote_time = coyote_time_duration
 		jump_count = 0
 	else:
@@ -62,9 +68,9 @@ func _physics_process(delta: float) -> void:
 	handle_jumping()
 	handle_dashing(delta)
 
-	move_and_slide()
+	player_body.move_and_slide()
 
-	if is_on_floor() and is_dashing:
+	if player_body.is_on_floor() and is_dashing:
 		is_dashing = false
 		dash_time = 0
 
@@ -72,33 +78,36 @@ func handle_horizontal_movement(delta: float) -> void:
 	move_input = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 
 	var target_speed = move_input * speed
-	var accel = acceleration if is_on_floor() else acceleration * air_control
+	var accel = acceleration if player_body.is_on_floor() else acceleration * air_control
 
-	velocity.x = lerp(velocity.x, target_speed, accel * delta)
+	player_body.velocity.x = lerp(player_body.velocity.x, target_speed, accel * delta)
 
 	if move_input != 0:
 		facing_direction = sign(move_input)
 
 func handle_jumping() -> void:
 	#print(jump_count)
-	if is_on_wall and not is_on_floor() and Input.is_action_just_pressed("jump") and wall_jump_cooldown_time <= 0:
-		velocity = wall_jump_force * Vector2(facing_direction * -1, 1)
+	if is_on_wall and not player_body.is_on_floor() and Input.is_action_just_pressed("jump") and wall_jump_cooldown_time <= 0:
+		player_body.velocity = wall_jump_force * Vector2(facing_direction * -1, 1)
 		wall_jump_cooldown_time = wall_jump_cooldown
-	elif Input.is_action_just_pressed("jump") and (is_on_floor() or coyote_time > 0 or jump_buffer_time > 0) and jump_count < max_jumps:
-		velocity.y = -jump_force
+	elif Input.is_action_just_pressed("jump") and (player_body.is_on_floor() or (jump_count < max_jumps and advanced_movement)):
+		if(coyote_time <= 0 and jump_count  == 0):				#HACK: no es bonito, pero hace el trabajo
+			jump_count += 1
+		player_body.velocity.y = -jump_force
 		is_jumping = true
-		jump_count += 1 
 		coyote_time = 0.0
 		jump_buffer_time = 0.0
+		jump_count += 1 
 	elif is_jumping and not Input.is_action_pressed("jump"):
-		if velocity.y < 0:
-			velocity.y *= variable_jump_height
+		if player_body.velocity.y < 0:
+			player_body.velocity.y *= variable_jump_height
 		is_jumping = false
 
 	if Input.is_action_just_pressed("jump"):
 		jump_buffer_time = jump_buffer_duration
 
 func handle_dashing(delta: float) -> void:
+	if !advanced_movement: return 
 	if Input.is_action_just_pressed("dash") and dash_cooldown_time <= 0 and not is_dashing:
 		is_dashing = true
 		dash_time = dash_duration
@@ -106,19 +115,19 @@ func handle_dashing(delta: float) -> void:
 		emit_signal("on_dash")
 
 	if is_dashing:
-		if is_on_floor():
-			velocity.x = facing_direction * dash_speed 						#TODO: reduce friction on grounded dash
+		if player_body.is_on_floor():
+			player_body.velocity.x = facing_direction * dash_speed 						#TODO: reduce friction on grounded dash
 		else:
-			velocity.x = facing_direction * dash_speed
+			player_body.velocity.x = facing_direction * dash_speed
 		
 		dash_time -= delta
 		if dash_time <= 0:
 			is_dashing = false
 
 	is_on_wall = is_on_wall_detected()
-	if is_on_wall and velocity.y > 0:
-		velocity.y = min(velocity.y, wall_slide_speed)
+	if is_on_wall and player_body.velocity.y > 0:
+		player_body.velocity.y = min(player_body.velocity.y, wall_slide_speed)
 
 
 func is_on_wall_detected() -> bool:
-	return get_slide_collision_count() > 0 and not is_on_floor()
+	return player_body.get_slide_collision_count() > 0 and not player_body.is_on_floor()
