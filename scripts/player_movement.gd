@@ -2,7 +2,7 @@ extends Node
 
 var player_body: CharacterBody2D
 
-# Movement parameters
+# Movement parameters								#TODO: add max linear speed and make normal running speed lower, so momentum can be applied
 @export var advanced_movement : bool = true
 @export var speed: float = 200.0					#WARNING: on low values, edge detecion explodes
 @export var jump_force: float = 500.0
