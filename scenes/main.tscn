@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://b2nmnwovc316j"]
+[gd_scene load_steps=21 format=3 uid="uid://b2nmnwovc316j"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_hq3rn"]
 [ext_resource type="Texture2D" uid="uid://bq85itqu1d062" path="res://assets/icon.svg" id="2_n27fh"]
 [ext_resource type="Script" path="res://scripts/breakable.gd" id="3_rdx76"]
+[ext_resource type="Script" path="res://scripts/health_pack.gd" id="4_8qsaw"]
 [ext_resource type="Script" path="res://scripts/player_health.gd" id="4_32wmc"]
 [ext_resource type="Script" path="res://scripts/spikes.gd" id="5_23gqn"]
 [ext_resource type="Script" path="res://scripts/player_movement.gd" id="5_aisyd"]
@@ -27,6 +28,15 @@ colors = PackedColorArray(1, 0, 0, 1, 1, 0.854902, 0.101961, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_g8nn1"]
 gradient = SubResource("Gradient_pimlr")
+
+[sub_resource type="Gradient" id="Gradient_i1cu0"]
+colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_j6nfm"]
+gradient = SubResource("Gradient_i1cu0")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h5kqa"]
+size = Vector2(64, 64)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5fflx"]
 
@@ -105,7 +115,18 @@ texture = SubResource("GradientTexture2D_g8nn1")
 script = ExtResource("3_rdx76")
 max_health = 20
 
-[node name="player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("spawn_point", "live_counter")]
+[node name="health_pack" type="Area2D" parent="place_holder_map"]
+position = Vector2(365, 428)
+scale = Vector2(0.4, 0.409091)
+script = ExtResource("4_8qsaw")
+
+[node name="Sprite2D" type="Sprite2D" parent="place_holder_map/health_pack"]
+texture = SubResource("GradientTexture2D_j6nfm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="place_holder_map/health_pack"]
+shape = SubResource("RectangleShape2D_h5kqa")
+
+[node name="player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("spawn_point", "live_counter") groups=["player"]]
 position = Vector2(183, 408)
 scale = Vector2(1.6, 1.96)
 script = ExtResource("1_hq3rn")
@@ -156,5 +177,9 @@ offset_bottom = 40.0
 scale = Vector2(1.39519, 1.38197)
 text = "lives: 0"
 
+[node name="bullet_node" type="Node2D" parent="."]
+position = Vector2(231, 327)
+
 [connection signal="body_entered" from="place_holder_map/damage_block" to="place_holder_map/damage_block" method="_on_body_entered"]
+[connection signal="body_entered" from="place_holder_map/health_pack" to="place_holder_map/health_pack" method="_on_body_entered"]
 [connection signal="loose_lives" from="player/health_controller" to="player" method="_loose_live"]

@@ -1,1 +1,5 @@
 extends damage_dealer
+
+
+func _on_area_entered(area: Area2D) -> void:
+	pass # Replace with function body.

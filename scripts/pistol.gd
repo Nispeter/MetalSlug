@@ -15,7 +15,7 @@ func attack():
 func shoot():
 	if can_shoot:
 		var bullet_obj = bullet_sc.instantiate() as bullet 				#TODO: pool bullets instead for better performance
-		bullet_obj.position = position
+		bullet_obj.position = position									#FIXME: bullet moving with player, using glopbal_position spawns bullet far away, currently tied to player in tree
 		bullet_obj.set_direction(_sooting_dir)							#NOTE: currently only works for right shooting 
 		get_parent().add_child(bullet_obj)
 		
