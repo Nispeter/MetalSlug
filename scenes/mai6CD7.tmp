@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b2nmnwovc316j"]
+[gd_scene load_steps=21 format=3 uid="uid://b2nmnwovc316j"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_hq3rn"]
 [ext_resource type="Texture2D" uid="uid://bq85itqu1d062" path="res://assets/icon.svg" id="2_n27fh"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" path="res://scripts/player_health.gd" id="4_32wmc"]
 [ext_resource type="Script" path="res://scripts/spikes.gd" id="5_23gqn"]
 [ext_resource type="Script" path="res://scripts/player_movement.gd" id="5_aisyd"]
-[ext_resource type="Script" path="res://scripts/coin.gd" id="5_de2wo"]
 [ext_resource type="Script" path="res://scripts/pistol.gd" id="6_1clyr"]
 [ext_resource type="PackedScene" uid="uid://cn7c5flv6sdx5" path="res://scenes/bullet.tscn" id="7_bi03l"]
 
@@ -127,26 +126,12 @@ texture = SubResource("GradientTexture2D_j6nfm")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="place_holder_map/health_pack"]
 shape = SubResource("RectangleShape2D_h5kqa")
 
-[node name="coin" type="Area2D" parent="place_holder_map"]
-position = Vector2(433, 426)
-scale = Vector2(0.4, 0.409091)
-script = ExtResource("5_de2wo")
-
-[node name="Sprite2D" type="Sprite2D" parent="place_holder_map/coin"]
-position = Vector2(1.52588e-05, -1.7643e-05)
-scale = Vector2(0.507813, 0.496528)
-texture = ExtResource("2_n27fh")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="place_holder_map/coin"]
-shape = SubResource("RectangleShape2D_h5kqa")
-
-[node name="player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("spawn_point", "live_counter", "score_counter") groups=["player"]]
+[node name="player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("spawn_point", "live_counter") groups=["player"]]
 position = Vector2(183, 408)
 scale = Vector2(1.6, 1.96)
 script = ExtResource("1_hq3rn")
 spawn_point = NodePath("../place_holder_map/spawn_point")
 live_counter = NodePath("../CanvasGroup/lives")
-score_counter = NodePath("../CanvasGroup/score")
 max_lives = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="player"]
@@ -170,6 +155,7 @@ script = ExtResource("4_32wmc")
 
 [node name="movement_controller" type="Node" parent="player"]
 script = ExtResource("5_aisyd")
+advanced_movement = false
 max_jumps = 2
 
 [node name="weapon_controller" type="Node2D" parent="player"]
@@ -191,18 +177,9 @@ offset_bottom = 40.0
 scale = Vector2(1.39519, 1.38197)
 text = "lives: 0"
 
-[node name="score" type="Label" parent="CanvasGroup"]
-offset_left = 49.9999
-offset_top = 19.0
-offset_right = 103.0
-offset_bottom = 42.0
-scale = Vector2(1.39519, 1.38197)
-text = "score: 0"
-
 [node name="bullet_node" type="Node2D" parent="."]
 position = Vector2(231, 327)
 
 [connection signal="body_entered" from="place_holder_map/damage_block" to="place_holder_map/damage_block" method="_on_body_entered"]
 [connection signal="body_entered" from="place_holder_map/health_pack" to="place_holder_map/health_pack" method="_on_body_entered"]
-[connection signal="body_entered" from="place_holder_map/coin" to="place_holder_map/coin" method="_on_body_entered"]
 [connection signal="loose_lives" from="player/health_controller" to="player" method="_loose_live"]

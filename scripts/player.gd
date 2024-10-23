@@ -1,4 +1,4 @@
-extends Node2D
+extends CharacterBody2D
 
 @export var spawn_point: Node
 
@@ -6,8 +6,10 @@ var health_controller
 var movement_controller
 
 @export var live_counter : Label
+@export var score_counter: Label
 @export var max_lives : int
 var current_lives : int
+var current_score : int
 
 func _ready():
 	# live_counter = $CanvasGroup/lives							#ALERT: Programatic approach not working 
@@ -20,6 +22,7 @@ func new_game():
 	# movement_controller.new_game()
 	spawn_player()
 	current_lives = max_lives
+	current_score = 0
 	live_counter.text = "LIVES: " + str(current_lives)
 
 func spawn_player():
@@ -27,6 +30,9 @@ func spawn_player():
 		position = spawn_point.position
 	pass
 	
+func add_score(score_value: int):
+	current_score += score_value
+	score_counter.text = "score: " + str(current_score)
 
 func _loose_live():
 	current_lives -= 1
