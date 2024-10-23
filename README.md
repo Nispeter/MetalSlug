@@ -5,7 +5,7 @@
 - ~~Recoleccion de items~~
 - ~~Proyectiles~~
 - ~~Vida~~
-- Puntaje 
+- ~~Puntaje~~
 - Melee
 ## Contenido
 - Primer nivel 
