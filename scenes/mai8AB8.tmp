@@ -1,0 +1,185 @@
+[gd_scene load_steps=21 format=3 uid="uid://b2nmnwovc316j"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_hq3rn"]
+[ext_resource type="Texture2D" uid="uid://bq85itqu1d062" path="res://assets/icon.svg" id="2_n27fh"]
+[ext_resource type="Script" path="res://scripts/breakable.gd" id="3_rdx76"]
+[ext_resource type="Script" path="res://scripts/health_pack.gd" id="4_8qsaw"]
+[ext_resource type="Script" path="res://scripts/player_health.gd" id="4_32wmc"]
+[ext_resource type="Script" path="res://scripts/spikes.gd" id="5_23gqn"]
+[ext_resource type="Script" path="res://scripts/player_movement.gd" id="5_aisyd"]
+[ext_resource type="Script" path="res://scripts/pistol.gd" id="6_1clyr"]
+[ext_resource type="PackedScene" uid="uid://cn7c5flv6sdx5" path="res://scenes/bullet.tscn" id="7_bi03l"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_02osq"]
+size = Vector2(50, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_afhr3"]
+size = Vector2(1316, 120)
+
+[sub_resource type="Gradient" id="Gradient_8vi5t"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_o3yob"]
+gradient = SubResource("Gradient_8vi5t")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rqvhb"]
+
+[sub_resource type="Gradient" id="Gradient_pimlr"]
+colors = PackedColorArray(1, 0, 0, 1, 1, 0.854902, 0.101961, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_g8nn1"]
+gradient = SubResource("Gradient_pimlr")
+
+[sub_resource type="Gradient" id="Gradient_i1cu0"]
+colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_j6nfm"]
+gradient = SubResource("Gradient_i1cu0")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h5kqa"]
+size = Vector2(64, 64)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5fflx"]
+
+[node name="Main" type="Node2D"]
+
+[node name="controls" type="Label" parent="."]
+visible = false
+offset_left = 71.0
+offset_top = 156.0
+offset_right = 421.0
+offset_bottom = 309.0
+scale = Vector2(1.39519, 1.38197)
+text = "A,D : horizontal movement
+space: jump
+shift: dash
+features: coyote jump, wall jump, air controll, 
+jump buffer, air jumps & corner climbing
+camera: smoothing and drag"
+
+[node name="place_holder_map" type="Node" parent="."]
+
+[node name="damage_block" type="Area2D" parent="place_holder_map"]
+position = Vector2(-140, 466)
+script = ExtResource("5_23gqn")
+damage_amount = 100
+
+[node name="Sprite2D" type="Sprite2D" parent="place_holder_map/damage_block"]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_n27fh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="place_holder_map/damage_block"]
+shape = SubResource("RectangleShape2D_02osq")
+
+[node name="ground" type="StaticBody2D" parent="place_holder_map"]
+position = Vector2(435, 530)
+
+[node name="ground" type="CollisionShape2D" parent="place_holder_map/ground"]
+shape = SubResource("RectangleShape2D_afhr3")
+
+[node name="Sprite2D" type="Sprite2D" parent="place_holder_map/ground/ground"]
+rotation = 1.5708
+scale = Vector2(1.84, 20.561)
+texture = SubResource("GradientTexture2D_o3yob")
+
+[node name="pilar" type="StaticBody2D" parent="place_holder_map"]
+position = Vector2(435, 530)
+collision_layer = 3
+collision_mask = 3
+
+[node name="elevated_ground" type="CollisionShape2D" parent="place_holder_map/pilar"]
+position = Vector2(283, -138)
+rotation = -1.5708
+scale = Vector2(0.12, 1)
+shape = SubResource("RectangleShape2D_afhr3")
+
+[node name="Sprite2D" type="Sprite2D" parent="place_holder_map/pilar/elevated_ground"]
+rotation = 0.000736453
+scale = Vector2(20.5606, 1.83958)
+texture = SubResource("GradientTexture2D_o3yob")
+
+[node name="spawn_point" type="Node2D" parent="place_holder_map"]
+position = Vector2(302, 444)
+
+[node name="damagable_box" type="StaticBody2D" parent="place_holder_map"]
+position = Vector2(546, 438)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="place_holder_map/damagable_box"]
+shape = SubResource("RectangleShape2D_rqvhb")
+
+[node name="Sprite2D" type="Sprite2D" parent="place_holder_map/damagable_box"]
+texture = SubResource("GradientTexture2D_g8nn1")
+
+[node name="health_controller" type="Node" parent="place_holder_map/damagable_box"]
+script = ExtResource("3_rdx76")
+max_health = 20
+
+[node name="health_pack" type="Area2D" parent="place_holder_map"]
+position = Vector2(365, 428)
+scale = Vector2(0.4, 0.409091)
+script = ExtResource("4_8qsaw")
+
+[node name="Sprite2D" type="Sprite2D" parent="place_holder_map/health_pack"]
+texture = SubResource("GradientTexture2D_j6nfm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="place_holder_map/health_pack"]
+shape = SubResource("RectangleShape2D_h5kqa")
+
+[node name="player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("spawn_point", "live_counter") groups=["player"]]
+position = Vector2(183, 408)
+scale = Vector2(1.6, 1.96)
+script = ExtResource("1_hq3rn")
+spawn_point = NodePath("../place_holder_map/spawn_point")
+live_counter = NodePath("../CanvasGroup/lives")
+max_lives = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="player"]
+scale = Vector2(0.159999, 0.239999)
+texture = ExtResource("2_n27fh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
+shape = SubResource("CapsuleShape2D_5fflx")
+
+[node name="Camera2D" type="Camera2D" parent="player"]
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.05
+drag_top_margin = 0.05
+drag_right_margin = 0.05
+drag_bottom_margin = 0.05
+
+[node name="health_controller" type="Node" parent="player"]
+script = ExtResource("4_32wmc")
+
+[node name="movement_controller" type="Node" parent="player"]
+script = ExtResource("5_aisyd")
+advanced_movement = false
+max_jumps = 2
+
+[node name="weapon_controller" type="Node2D" parent="player"]
+position = Vector2(11.875, 0)
+script = ExtResource("6_1clyr")
+bullet_sc = ExtResource("7_bi03l")
+
+[node name="Sprite2D" type="Sprite2D" parent="player/weapon_controller"]
+scale = Vector2(0.117188, 0.0637755)
+texture = ExtResource("2_n27fh")
+
+[node name="CanvasGroup" type="CanvasLayer" parent="."]
+
+[node name="lives" type="Label" parent="CanvasGroup"]
+offset_left = 863.0
+offset_top = 17.0
+offset_right = 916.0
+offset_bottom = 40.0
+scale = Vector2(1.39519, 1.38197)
+text = "lives: 0"
+
+[node name="bullet_node" type="Node2D" parent="."]
+position = Vector2(231, 327)
+
+[connection signal="body_entered" from="place_holder_map/damage_block" to="place_holder_map/damage_block" method="_on_body_entered"]
+[connection signal="body_entered" from="place_holder_map/health_pack" to="place_holder_map/health_pack" method="_on_body_entered"]
+[connection signal="loose_lives" from="player/health_controller" to="player" method="_loose_live"]
