@@ -7,11 +7,11 @@
 - ~~Vida~~
 - ~~Puntaje~~
 - Melee
-- Manejo de pantallas
 - GameOver
 - NewGame
 - HighScore
 ## Contenido
+- Movimeinto de camara
 - Primer nivel 
 	- plataformas
 	- backgrounds 
