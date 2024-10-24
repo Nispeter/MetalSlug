@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b2nmnwovc316j"]
+[gd_scene load_steps=26 format=3 uid="uid://b2nmnwovc316j"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_hq3rn"]
 [ext_resource type="Texture2D" uid="uid://bq85itqu1d062" path="res://assets/icon.svg" id="2_n27fh"]
@@ -10,6 +10,10 @@
 [ext_resource type="Script" path="res://scripts/coin.gd" id="5_de2wo"]
 [ext_resource type="Script" path="res://scripts/pistol.gd" id="6_1clyr"]
 [ext_resource type="PackedScene" uid="uid://cn7c5flv6sdx5" path="res://scenes/bullet.tscn" id="7_bi03l"]
+[ext_resource type="Script" path="res://scripts/screen_manager.gd" id="11_4lwc1"]
+[ext_resource type="Script" path="res://scripts/screen.gd" id="12_il35j"]
+[ext_resource type="Texture2D" uid="uid://cv4ievu5inefm" path="res://assets/sprites/Neo Geo NGCD - Metal Slug - High Score & Results Screen.png" id="13_rl7wj"]
+[ext_resource type="Texture2D" uid="uid://cgknd027424s1" path="res://assets/sprites/Neo Geo NGCD - Metal Slug - Mission Select Neo Geo CD.png" id="14_h3frt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_02osq"]
 size = Vector2(50, 50)
@@ -145,8 +149,8 @@ position = Vector2(183, 408)
 scale = Vector2(1.6, 1.96)
 script = ExtResource("1_hq3rn")
 spawn_point = NodePath("../place_holder_map/spawn_point")
-live_counter = NodePath("../CanvasGroup/lives")
-score_counter = NodePath("../CanvasGroup/score")
+live_counter = NodePath("../screen_manager/lives")
+score_counter = NodePath("../screen_manager/score")
 max_lives = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="player"]
@@ -181,9 +185,12 @@ bullet_sc = ExtResource("7_bi03l")
 scale = Vector2(0.117188, 0.0637755)
 texture = ExtResource("2_n27fh")
 
-[node name="CanvasGroup" type="CanvasLayer" parent="."]
+[node name="screen_manager" type="CanvasLayer" parent="."]
+script = ExtResource("11_4lwc1")
+screen_a_path = NodePath("a")
+screen_b_path = NodePath("b")
 
-[node name="lives" type="Label" parent="CanvasGroup"]
+[node name="lives" type="Label" parent="screen_manager"]
 offset_left = 863.0
 offset_top = 17.0
 offset_right = 916.0
@@ -191,13 +198,35 @@ offset_bottom = 40.0
 scale = Vector2(1.39519, 1.38197)
 text = "lives: 0"
 
-[node name="score" type="Label" parent="CanvasGroup"]
+[node name="score" type="Label" parent="screen_manager"]
 offset_left = 49.9999
 offset_top = 19.0
 offset_right = 103.0
 offset_bottom = 42.0
 scale = Vector2(1.39519, 1.38197)
 text = "score: 0"
+
+[node name="a" type="Control" parent="screen_manager"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 824.0
+offset_bottom = 323.0
+script = ExtResource("12_il35j")
+
+[node name="Sprite2D" type="Sprite2D" parent="screen_manager/a"]
+texture = ExtResource("13_rl7wj")
+
+[node name="b" type="Control" parent="screen_manager"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 795.0
+offset_bottom = 359.0
+script = ExtResource("12_il35j")
+
+[node name="Sprite2D" type="Sprite2D" parent="screen_manager/b"]
+texture = ExtResource("14_h3frt")
 
 [node name="bullet_node" type="Node2D" parent="."]
 position = Vector2(231, 327)
