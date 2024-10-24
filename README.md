@@ -7,6 +7,10 @@
 - ~~Vida~~
 - ~~Puntaje~~
 - Melee
+- Manejo de pantallas
+- GameOver
+- NewGame
+- HighScore
 ## Contenido
 - Primer nivel 
 	- plataformas
