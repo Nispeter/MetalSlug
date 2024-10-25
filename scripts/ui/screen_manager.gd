@@ -1,21 +1,16 @@
 extends Node
-#NOTE: screen_manager is a Global class singleton, refer to project > project settings > globals for additional configuration
+class_name screen_manager
+#NOTE: screen_manager is a initialized by Global class singleton, refer to project > project settings > globals for additional configuration
 
-@export var screen_a_path : NodePath 				#FIXME: due to being a global, this script does not recongise paths to screens
-@export var screen_b_path : NodePath 
+@export var screen_a : screen 				
+@export var screen_b : screen 
 
 var screen_stack: Array = []
 
-var screen_a: screen
-var screen_b: screen
-
 func _ready():
-	if has_node(screen_a_path):
-		screen_a = get_node(screen_a_path) as screen
-	if has_node(screen_b_path):
-		screen_b = get_node(screen_b_path) as screen
 	if screen_a == null or screen_b == null:
-		print("Error: Screens are not properly initialized.")
+		print("Error on screen allocation")
+	pass
 
 func _process(delta: float)-> void:
 	if Input.is_action_just_pressed("pause"):

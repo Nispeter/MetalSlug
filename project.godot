@@ -17,7 +17,8 @@ config/icon="res://assets/icon.svg"
 
 [autoload]
 
-screen_manager="*res://scripts/screen_manager.gd"
+screen_manager="res://scripts/ui/screen_manager.gd"
+Global="*res://scripts/utils/global.gd"
 
 [display]
 

@@ -2,8 +2,8 @@ extends CharacterBody2D
 
 @export var spawn_point: Node
 
-var health_controller
-var movement_controller
+var health_controller 
+var movement_controller 
 
 @export var live_counter : Label
 @export var score_counter: Label

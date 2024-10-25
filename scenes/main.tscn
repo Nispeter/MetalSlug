@@ -1,17 +1,16 @@
-[gd_scene load_steps=26 format=3 uid="uid://b2nmnwovc316j"]
+[gd_scene load_steps=25 format=3 uid="uid://b2nmnwovc316j"]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_hq3rn"]
 [ext_resource type="Texture2D" uid="uid://bq85itqu1d062" path="res://assets/icon.svg" id="2_n27fh"]
-[ext_resource type="Script" path="res://scripts/breakable.gd" id="3_rdx76"]
-[ext_resource type="Script" path="res://scripts/health_pack.gd" id="4_8qsaw"]
-[ext_resource type="Script" path="res://scripts/player_health.gd" id="4_32wmc"]
-[ext_resource type="Script" path="res://scripts/spikes.gd" id="5_23gqn"]
-[ext_resource type="Script" path="res://scripts/player_movement.gd" id="5_aisyd"]
-[ext_resource type="Script" path="res://scripts/coin.gd" id="5_de2wo"]
-[ext_resource type="Script" path="res://scripts/pistol.gd" id="6_1clyr"]
-[ext_resource type="PackedScene" uid="uid://cn7c5flv6sdx5" path="res://scenes/bullet.tscn" id="7_bi03l"]
-[ext_resource type="Script" path="res://scripts/screen_manager.gd" id="11_4lwc1"]
-[ext_resource type="Script" path="res://scripts/screen.gd" id="12_il35j"]
+[ext_resource type="Script" path="res://scripts/entities/environment/breakable.gd" id="3_rdx76"]
+[ext_resource type="Script" path="res://scripts/entities/environment/health_pack.gd" id="4_8qsaw"]
+[ext_resource type="Script" path="res://scripts/entities/environment/spikes.gd" id="5_23gqn"]
+[ext_resource type="Script" path="res://scripts/entities/environment/coin.gd" id="5_de2wo"]
+[ext_resource type="PackedScene" uid="uid://ddbm1dl66wc37" path="res://scenes/player_prefab.tscn" id="6_1krin"]
+[ext_resource type="Script" path="res://scripts/ui/screen_manager.gd" id="11_4lwc1"]
+[ext_resource type="Script" path="res://scripts/entities/enemies/enemy_health.gd" id="11_x8qyn"]
+[ext_resource type="Script" path="res://scripts/entities/enemies/enemy_pistol.gd" id="12_2i5et"]
+[ext_resource type="Script" path="res://scripts/ui/screen.gd" id="12_il35j"]
+[ext_resource type="PackedScene" uid="uid://d2ikhbj1at2tj" path="res://scenes/enemy_bullet.tscn" id="13_rjjd0"]
 [ext_resource type="Texture2D" uid="uid://cv4ievu5inefm" path="res://assets/sprites/Neo Geo NGCD - Metal Slug - High Score & Results Screen.png" id="13_rl7wj"]
 [ext_resource type="Texture2D" uid="uid://cgknd027424s1" path="res://assets/sprites/Neo Geo NGCD - Metal Slug - Mission Select Neo Geo CD.png" id="14_h3frt"]
 
@@ -26,13 +25,14 @@ size = Vector2(1316, 120)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_o3yob"]
 gradient = SubResource("Gradient_8vi5t")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rqvhb"]
-
 [sub_resource type="Gradient" id="Gradient_pimlr"]
 colors = PackedColorArray(1, 0, 0, 1, 1, 0.854902, 0.101961, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_g8nn1"]
 gradient = SubResource("Gradient_pimlr")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rqvhb"]
+size = Vector2(62, 60)
 
 [sub_resource type="Gradient" id="Gradient_i1cu0"]
 colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 1)
@@ -43,7 +43,8 @@ gradient = SubResource("Gradient_i1cu0")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h5kqa"]
 size = Vector2(64, 64)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5fflx"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1xk4q"]
+size = Vector2(36, 64)
 
 [node name="Main" type="Node2D"]
 
@@ -74,6 +75,14 @@ texture = ExtResource("2_n27fh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="place_holder_map/damage_block"]
 shape = SubResource("RectangleShape2D_02osq")
+
+[node name="Label" type="Label" parent="place_holder_map/damage_block"]
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 32.0
+offset_bottom = 3.0
+scale = Vector2(0.774586, 0.774586)
+text = "SPIKES"
 
 [node name="ground" type="StaticBody2D" parent="place_holder_map"]
 position = Vector2(435, 530)
@@ -107,21 +116,29 @@ position = Vector2(302, 444)
 
 [node name="damagable_box" type="StaticBody2D" parent="place_holder_map"]
 position = Vector2(546, 438)
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="place_holder_map/damagable_box"]
-shape = SubResource("RectangleShape2D_rqvhb")
+collision_layer = 3
+collision_mask = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="place_holder_map/damagable_box"]
 texture = SubResource("GradientTexture2D_g8nn1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="place_holder_map/damagable_box"]
+shape = SubResource("RectangleShape2D_rqvhb")
 
 [node name="health_controller" type="Node" parent="place_holder_map/damagable_box"]
 script = ExtResource("3_rdx76")
 max_health = 20
 
+[node name="Label" type="Label" parent="place_holder_map/damagable_box"]
+offset_left = -30.0
+offset_top = -18.0
+offset_right = 60.0
+offset_bottom = 5.0
+scale = Vector2(0.661488, 0.661488)
+text = "BREAKABLE"
+
 [node name="health_pack" type="Area2D" parent="place_holder_map"]
-position = Vector2(365, 428)
+position = Vector2(-48, 364)
 scale = Vector2(0.4, 0.409091)
 script = ExtResource("4_8qsaw")
 
@@ -131,8 +148,15 @@ texture = SubResource("GradientTexture2D_j6nfm")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="place_holder_map/health_pack"]
 shape = SubResource("RectangleShape2D_h5kqa")
 
+[node name="Label" type="Label" parent="place_holder_map/health_pack"]
+offset_left = -30.0
+offset_top = -14.6667
+offset_right = 32.0
+offset_bottom = 8.33326
+text = "HEALTH"
+
 [node name="coin" type="Area2D" parent="place_holder_map"]
-position = Vector2(433, 426)
+position = Vector2(33, 316)
 scale = Vector2(0.4, 0.409091)
 script = ExtResource("5_de2wo")
 
@@ -144,51 +168,62 @@ texture = ExtResource("2_n27fh")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="place_holder_map/coin"]
 shape = SubResource("RectangleShape2D_h5kqa")
 
-[node name="player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("spawn_point", "live_counter", "score_counter") groups=["player"]]
-position = Vector2(183, 408)
-scale = Vector2(1.6, 1.96)
-script = ExtResource("1_hq3rn")
+[node name="Label" type="Label" parent="place_holder_map/coin"]
+offset_left = -20.0
+offset_top = -34.2222
+offset_right = 21.0
+offset_bottom = -11.2222
+text = "COIN"
+
+[node name="coin2" type="Area2D" parent="place_holder_map"]
+position = Vector2(649, 216)
+scale = Vector2(0.4, 0.409091)
+script = ExtResource("5_de2wo")
+
+[node name="Sprite2D" type="Sprite2D" parent="place_holder_map/coin2"]
+position = Vector2(1.52588e-05, -1.7643e-05)
+scale = Vector2(0.507813, 0.496528)
+texture = ExtResource("2_n27fh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="place_holder_map/coin2"]
+shape = SubResource("RectangleShape2D_h5kqa")
+
+[node name="Label" type="Label" parent="place_holder_map/coin2"]
+offset_left = -20.0
+offset_top = -34.2222
+offset_right = 21.0
+offset_bottom = -11.2222
+text = "COIN"
+
+[node name="coin3" type="Area2D" parent="place_holder_map"]
+position = Vector2(433, 426)
+scale = Vector2(0.4, 0.409091)
+script = ExtResource("5_de2wo")
+
+[node name="Sprite2D" type="Sprite2D" parent="place_holder_map/coin3"]
+position = Vector2(1.52588e-05, -1.7643e-05)
+scale = Vector2(0.507813, 0.496528)
+texture = ExtResource("2_n27fh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="place_holder_map/coin3"]
+shape = SubResource("RectangleShape2D_h5kqa")
+
+[node name="Label" type="Label" parent="place_holder_map/coin3"]
+offset_left = -20.0
+offset_top = -34.2222
+offset_right = 21.0
+offset_bottom = -11.2222
+text = "COIN"
+
+[node name="player" parent="." node_paths=PackedStringArray("spawn_point", "live_counter", "score_counter") instance=ExtResource("6_1krin")]
 spawn_point = NodePath("../place_holder_map/spawn_point")
 live_counter = NodePath("../screen_manager/lives")
 score_counter = NodePath("../screen_manager/score")
-max_lives = 3
 
-[node name="Sprite2D" type="Sprite2D" parent="player"]
-scale = Vector2(0.159999, 0.239999)
-texture = ExtResource("2_n27fh")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
-shape = SubResource("CapsuleShape2D_5fflx")
-
-[node name="Camera2D" type="Camera2D" parent="player"]
-position_smoothing_enabled = true
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-drag_left_margin = 0.05
-drag_top_margin = 0.05
-drag_right_margin = 0.05
-drag_bottom_margin = 0.05
-
-[node name="health_controller" type="Node" parent="player"]
-script = ExtResource("4_32wmc")
-
-[node name="movement_controller" type="Node" parent="player"]
-script = ExtResource("5_aisyd")
-max_jumps = 2
-
-[node name="weapon_controller" type="Node2D" parent="player"]
-position = Vector2(11.875, 0)
-script = ExtResource("6_1clyr")
-bullet_sc = ExtResource("7_bi03l")
-
-[node name="Sprite2D" type="Sprite2D" parent="player/weapon_controller"]
-scale = Vector2(0.117188, 0.0637755)
-texture = ExtResource("2_n27fh")
-
-[node name="screen_manager" type="CanvasLayer" parent="."]
+[node name="screen_manager" type="CanvasLayer" parent="." node_paths=PackedStringArray("screen_a", "screen_b")]
 script = ExtResource("11_4lwc1")
-screen_a_path = NodePath("a")
-screen_b_path = NodePath("b")
+screen_a = NodePath("a")
+screen_b = NodePath("b")
 
 [node name="lives" type="Label" parent="screen_manager"]
 offset_left = 863.0
@@ -231,7 +266,44 @@ texture = ExtResource("14_h3frt")
 [node name="bullet_node" type="Node2D" parent="."]
 position = Vector2(231, 327)
 
+[node name="enemy" type="CharacterBody2D" parent="."]
+position = Vector2(897, 432)
+collision_layer = 2
+collision_mask = 2
+
+[node name="health_controller" type="Node" parent="enemy"]
+script = ExtResource("11_x8qyn")
+
+[node name="Sprite2D" type="Sprite2D" parent="enemy"]
+scale = Vector2(0.281249, 0.5)
+texture = ExtResource("2_n27fh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy"]
+shape = SubResource("RectangleShape2D_1xk4q")
+
+[node name="weapon_controller" type="Node2D" parent="enemy"]
+visible = false
+script = ExtResource("12_2i5et")
+bullet_sc = ExtResource("13_rjjd0")
+
+[node name="Sprite2D" type="Sprite2D" parent="enemy/weapon_controller"]
+position = Vector2(-22, -4)
+scale = Vector2(0.125, 0.078125)
+texture = ExtResource("2_n27fh")
+
+[node name="Timer" type="Timer" parent="enemy/weapon_controller"]
+autostart = true
+
+[node name="Label" type="Label" parent="enemy"]
+offset_left = -14.0
+offset_top = -26.0
+offset_right = 41.0
+offset_bottom = -2.0
+scale = Vector2(0.506311, 0.506311)
+text = "ENEMY"
+
 [connection signal="body_entered" from="place_holder_map/damage_block" to="place_holder_map/damage_block" method="_on_body_entered"]
 [connection signal="body_entered" from="place_holder_map/health_pack" to="place_holder_map/health_pack" method="_on_body_entered"]
 [connection signal="body_entered" from="place_holder_map/coin" to="place_holder_map/coin" method="_on_body_entered"]
-[connection signal="loose_lives" from="player/health_controller" to="player" method="_loose_live"]
+[connection signal="body_entered" from="place_holder_map/coin2" to="place_holder_map/coin2" method="_on_body_entered"]
+[connection signal="body_entered" from="place_holder_map/coin3" to="place_holder_map/coin3" method="_on_body_entered"]

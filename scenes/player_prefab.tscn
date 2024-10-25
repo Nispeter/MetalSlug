@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://ddbm1dl66wc37"]
+
+[ext_resource type="Script" path="res://scripts/entities/player/player.gd" id="1_c8031"]
+[ext_resource type="Texture2D" uid="uid://bq85itqu1d062" path="res://assets/icon.svg" id="2_4p212"]
+[ext_resource type="Script" path="res://scripts/entities/player/player_health.gd" id="3_67myh"]
+[ext_resource type="Script" path="res://scripts/entities/player/player_movement.gd" id="4_j04j7"]
+[ext_resource type="Script" path="res://scripts/entities/player/pistol.gd" id="5_xyqc0"]
+[ext_resource type="PackedScene" uid="uid://cn7c5flv6sdx5" path="res://scenes/bullet.tscn" id="6_rp8ml"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5fflx"]
+
+[node name="player" type="CharacterBody2D" groups=["player"]]
+position = Vector2(183, 408)
+scale = Vector2(1.6, 1.96)
+script = ExtResource("1_c8031")
+max_lives = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.159999, 0.239999)
+texture = ExtResource("2_4p212")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_5fflx")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.05
+drag_top_margin = 0.05
+drag_right_margin = 0.05
+drag_bottom_margin = 0.05
+
+[node name="health_controller" type="Node" parent="."]
+script = ExtResource("3_67myh")
+
+[node name="movement_controller" type="Node" parent="."]
+script = ExtResource("4_j04j7")
+max_jumps = 2
+
+[node name="weapon_controller" type="Node2D" parent="."]
+position = Vector2(11.875, 0)
+script = ExtResource("5_xyqc0")
+bullet_sc = ExtResource("6_rp8ml")
+
+[node name="Sprite2D" type="Sprite2D" parent="weapon_controller"]
+scale = Vector2(0.117188, 0.0637755)
+texture = ExtResource("2_4p212")
+
+[connection signal="loose_lives" from="health_controller" to="." method="_loose_live"]
