@@ -11,10 +11,8 @@ func _ready():
 
 func _process(delta: float) -> void:
 	position.y = original_y + sin(Time.get_ticks_msec() / 1000.0 * float_speed) * float_amplitude
-
-func _on_body_entered(body: Node) -> void:
-	if body.is_in_group("player"):
-		if body.has_method("add_score"):
-			print("receiving "+ str(score_value) +" points")
-			body.add_score(score_value)
-		queue_free()
+	
+func collect(body:Node):
+	if body.has_method("add_score"):
+		print("receiving "+ str(score_value) +" points")
+		body.add_score(score_value)

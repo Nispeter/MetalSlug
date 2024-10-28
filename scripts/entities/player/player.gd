@@ -2,8 +2,9 @@ extends CharacterBody2D
 
 @export var spawn_point: Node
 
-var health_controller 
-var movement_controller 
+var health_controller : Node
+var movement_controller : Node
+var weapon_controller : Node
 
 @export var live_counter : Label
 @export var score_counter: Label
@@ -15,11 +16,11 @@ func _ready():
 	# live_counter = $CanvasGroup/lives							#ALERT: Programatic approach not working 
 	health_controller = $health_controller
 	movement_controller = $movement_controller
+	weapon_controller = $weapon_controller
 	new_game()
 	
 func new_game():
 	health_controller.new_game()
-	# movement_controller.new_game()
 	spawn_player()
 	current_lives = max_lives
 	current_score = 0
@@ -43,5 +44,8 @@ func _loose_live():
 	
 func loose_game():
 	print("you lost!")
-	#new_game()
 	pass
+	
+func change_weapon(weapon_name: String):
+	weapon_controller.change_weapon(weapon_name)
+	

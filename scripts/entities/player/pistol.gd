@@ -1,7 +1,8 @@
 extends weapon
+class_name pistol
 
 @export var bullet_sc : PackedScene
-@export var shoot_rate: float = 0.5
+@export var shoot_rate: float 
 
 var can_shoot: bool = true
 var _shooting_dir: Vector2 = Vector2.RIGHT
@@ -24,7 +25,7 @@ func shoot():
 		can_shoot = true
 
 func _process(delta: float):
-	if Input.is_action_just_pressed("attack"):
+	if Input.is_action_pressed("attack"):
 		if Input.is_action_pressed("ui_up"):
 			_shooting_dir = Vector2.UP
 		else:

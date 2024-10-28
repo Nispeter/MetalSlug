@@ -19,6 +19,7 @@ config/icon="res://assets/icon.svg"
 
 screen_manager="res://scripts/ui/screen_manager.gd"
 Global="*res://scripts/utils/global.gd"
+WeaponTypes="*res://scripts/entities/shared/WeaponTypes.gd"
 
 [display]
 

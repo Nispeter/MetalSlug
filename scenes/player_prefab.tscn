@@ -1,11 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://ddbm1dl66wc37"]
+[gd_scene load_steps=10 format=3 uid="uid://ddbm1dl66wc37"]
 
 [ext_resource type="Script" path="res://scripts/entities/player/player.gd" id="1_c8031"]
 [ext_resource type="Texture2D" uid="uid://bq85itqu1d062" path="res://assets/icon.svg" id="2_4p212"]
 [ext_resource type="Script" path="res://scripts/entities/player/player_health.gd" id="3_67myh"]
 [ext_resource type="Script" path="res://scripts/entities/player/player_movement.gd" id="4_j04j7"]
+[ext_resource type="Script" path="res://scripts/entities/player/weapon_controller.gd" id="5_hx176"]
 [ext_resource type="Script" path="res://scripts/entities/player/pistol.gd" id="5_xyqc0"]
 [ext_resource type="PackedScene" uid="uid://cn7c5flv6sdx5" path="res://scenes/bullet.tscn" id="6_rp8ml"]
+[ext_resource type="Script" path="res://scripts/entities/player/smg.gd" id="7_kldol"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5fflx"]
 
@@ -40,11 +42,27 @@ max_jumps = 2
 
 [node name="weapon_controller" type="Node2D" parent="."]
 position = Vector2(11.875, 0)
+script = ExtResource("5_hx176")
+
+[node name="pistol" type="Node2D" parent="weapon_controller"]
 script = ExtResource("5_xyqc0")
 bullet_sc = ExtResource("6_rp8ml")
+shoot_rate = 0.5
 
-[node name="Sprite2D" type="Sprite2D" parent="weapon_controller"]
+[node name="Sprite2D" type="Sprite2D" parent="weapon_controller/pistol"]
 scale = Vector2(0.117188, 0.0637755)
+texture = ExtResource("2_4p212")
+
+[node name="smg" type="Node2D" parent="weapon_controller"]
+script = ExtResource("7_kldol")
+bullet_sc = ExtResource("6_rp8ml")
+shoot_rate = 0.1
+has_life_time = true
+weapon_life_time = 4.0
+
+[node name="Sprite2D2" type="Sprite2D" parent="weapon_controller/smg"]
+position = Vector2(7.49998, 0)
+scale = Vector2(0.234375, 0.0637755)
 texture = ExtResource("2_4p212")
 
 [connection signal="loose_lives" from="health_controller" to="." method="_loose_live"]

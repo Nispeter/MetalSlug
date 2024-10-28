@@ -305,6 +305,9 @@ texture = ExtResource("2_n27fh")
 [node name="weapon_controller" type="Node2D" parent="enemy"]
 script = ExtResource("12_2i5et")
 bullet_sc = ExtResource("13_rjjd0")
+shoot_rate = null
+has_life_time = null
+weapon_life_time = null
 
 [node name="Sprite2D" type="Sprite2D" parent="enemy/weapon_controller"]
 position = Vector2(-22, -4)
