@@ -6,10 +6,11 @@ Forma parte de los proyectos creados como practica de Godot4 para la Game OFF 20
 # Requerimientos
 ## Sistemas
 - [x] Disparo para arriba
-- [ ] Recoleccion de items
+- [x] Recoleccion de items
 - [x] Proyectiles
 - [x] Vida
 - [x] Puntaje
+- [x] Cambio de armas 
 - [ ] Melee
 - [ ] GameOver
 - [ ] NewGame
