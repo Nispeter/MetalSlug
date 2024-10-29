@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://c58qpygynse87"]
+
+[ext_resource type="Script" path="res://scripts/entities/enemies/enemy_health.gd" id="1_kpcqi"]
+[ext_resource type="Texture2D" uid="uid://bq85itqu1d062" path="res://assets/icon.svg" id="2_wi6xa"]
+[ext_resource type="Script" path="res://scripts/entities/enemies/enemy_pistol.gd" id="3_ntvw2"]
+[ext_resource type="PackedScene" uid="uid://d2ikhbj1at2tj" path="res://scenes/entities/enemy_bullet.tscn" id="4_6xpsd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1xk4q"]
+size = Vector2(36, 64)
+
+[node name="enemy" type="CharacterBody2D"]
+position = Vector2(897, 432)
+collision_layer = 2
+collision_mask = 2
+
+[node name="health_controller" type="Node" parent="."]
+script = ExtResource("1_kpcqi")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.281249, 0.5)
+texture = ExtResource("2_wi6xa")
+
+[node name="weapon_controller" type="Node2D" parent="."]
+script = ExtResource("3_ntvw2")
+bullet_sc = ExtResource("4_6xpsd")
+
+[node name="Sprite2D" type="Sprite2D" parent="weapon_controller"]
+position = Vector2(-22, -4)
+scale = Vector2(0.125, 0.078125)
+texture = ExtResource("2_wi6xa")
+
+[node name="Timer" type="Timer" parent="weapon_controller"]
+autostart = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1xk4q")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -14.0
+offset_top = -26.0
+offset_right = 41.0
+offset_bottom = -2.0
+scale = Vector2(0.506311, 0.506311)
+text = "ENEMY"

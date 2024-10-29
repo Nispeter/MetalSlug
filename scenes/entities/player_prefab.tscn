@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://scripts/entities/player/player_movement.gd" id="4_j04j7"]
 [ext_resource type="Script" path="res://scripts/entities/player/weapon_controller.gd" id="5_hx176"]
 [ext_resource type="Script" path="res://scripts/entities/player/pistol.gd" id="5_xyqc0"]
-[ext_resource type="PackedScene" uid="uid://cn7c5flv6sdx5" path="res://scenes/bullet.tscn" id="6_rp8ml"]
+[ext_resource type="PackedScene" uid="uid://cn7c5flv6sdx5" path="res://scenes/entities/bullet.tscn" id="6_rp8ml"]
 [ext_resource type="Script" path="res://scripts/entities/player/smg.gd" id="7_kldol"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5fflx"]
@@ -58,7 +58,7 @@ script = ExtResource("7_kldol")
 bullet_sc = ExtResource("6_rp8ml")
 shoot_rate = 0.1
 has_life_time = true
-weapon_life_time = 2.0
+weapon_life_time = 10.0
 
 [node name="Sprite2D2" type="Sprite2D" parent="weapon_controller/smg"]
 position = Vector2(7.49998, 0)

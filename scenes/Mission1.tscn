@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://cqefg68v16li6"]
+[gd_scene load_steps=3 format=3 uid="uid://brm4w75yss216"]
 
 [ext_resource type="Texture2D" uid="uid://dt7776fj3iw4c" path="res://assets/sprites/Neo Geo NGCD - Metal Slug - Mission 1.png" id="1_saoux"]
 [ext_resource type="Texture2D" uid="uid://pfyhdn813b4k" path="res://assets/sprites/Neo Geo NGCD - Metal Slug - Mission 1 FIXED.png" id="2_56dwg"]

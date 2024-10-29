@@ -55,60 +55,44 @@ fill_from = Vector2(0, 1)
 
 [node name="Main" type="Node2D"]
 
+[node name="controls" type="Label" parent="."]
+visible = false
+offset_left = 71.0
+offset_top = 156.0
+offset_right = 421.0
+offset_bottom = 309.0
+scale = Vector2(1.39519, 1.38197)
+text = "A,D : horizontal movement
+space: jump
+shift: dash
+features: coyote jump, wall jump, air controll, 
+jump buffer, air jumps & corner climbing
+camera: smoothing and drag"
+
 [node name="place_holder_map" type="Node" parent="."]
 
 [node name="mission_1" parent="place_holder_map" instance=ExtResource("1_agn2p")]
-z_index = -1
-position = Vector2(-244, -125)
+position = Vector2(-221, -151)
 scale = Vector2(1.4, 1.4)
 
 [node name="ground" type="StaticBody2D" parent="place_holder_map"]
 position = Vector2(435, 530)
 
 [node name="ground" type="CollisionShape2D" parent="place_holder_map/ground"]
-position = Vector2(-21, 41)
 shape = SubResource("RectangleShape2D_afhr3")
 
 [node name="Sprite2D" type="Sprite2D" parent="place_holder_map/ground/ground"]
-visible = false
-rotation = 1.5708
-scale = Vector2(1.84, 20.561)
-texture = SubResource("GradientTexture2D_o3yob")
-
-[node name="ground2" type="StaticBody2D" parent="place_holder_map"]
-position = Vector2(1540, 584)
-scale = Vector2(0.76, 1)
-
-[node name="ground" type="CollisionShape2D" parent="place_holder_map/ground2"]
-position = Vector2(-29.4116, -15)
-shape = SubResource("RectangleShape2D_afhr3")
-
-[node name="Sprite2D" type="Sprite2D" parent="place_holder_map/ground2/ground"]
-visible = false
-rotation = 1.5708
-scale = Vector2(1.84, 20.561)
-texture = SubResource("GradientTexture2D_o3yob")
-
-[node name="ground3" type="StaticBody2D" parent="place_holder_map"]
-position = Vector2(6725, 653)
-scale = Vector2(7.2, 1)
-
-[node name="ground" type="CollisionShape2D" parent="place_holder_map/ground3"]
-shape = SubResource("RectangleShape2D_afhr3")
-
-[node name="Sprite2D" type="Sprite2D" parent="place_holder_map/ground3/ground"]
-visible = false
 rotation = 1.5708
 scale = Vector2(1.84, 20.561)
 texture = SubResource("GradientTexture2D_o3yob")
 
 [node name="pilar" type="StaticBody2D" parent="place_holder_map"]
-position = Vector2(242, 569)
+position = Vector2(435, 530)
 collision_layer = 3
 collision_mask = 3
 
 [node name="elevated_ground" type="CollisionShape2D" parent="place_holder_map/pilar"]
-position = Vector2(453, -137)
+position = Vector2(283, -138)
 rotation = -1.5708
 scale = Vector2(0.12, 1)
 shape = SubResource("RectangleShape2D_afhr3")
@@ -124,7 +108,7 @@ position = Vector2(302, 444)
 [node name="interactuables" type="Node2D" parent="place_holder_map"]
 
 [node name="damage_block" type="Area2D" parent="place_holder_map/interactuables"]
-position = Vector2(-87, 509)
+position = Vector2(-140, 466)
 script = ExtResource("5_23gqn")
 damage_amount = 100
 
@@ -144,7 +128,7 @@ scale = Vector2(0.774586, 0.774586)
 text = "SPIKES"
 
 [node name="damagable_box" type="StaticBody2D" parent="place_holder_map/interactuables"]
-position = Vector2(529, 476)
+position = Vector2(546, 438)
 collision_layer = 3
 collision_mask = 3
 
@@ -166,77 +150,8 @@ offset_bottom = 5.0
 scale = Vector2(0.661488, 0.661488)
 text = "BREAKABLE"
 
-[node name="damagable_box3" type="StaticBody2D" parent="place_holder_map/interactuables"]
-position = Vector2(593, 476)
-collision_layer = 3
-collision_mask = 3
-
-[node name="Sprite2D" type="Sprite2D" parent="place_holder_map/interactuables/damagable_box3"]
-texture = SubResource("GradientTexture2D_g8nn1")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="place_holder_map/interactuables/damagable_box3"]
-shape = SubResource("RectangleShape2D_rqvhb")
-
-[node name="health_controller" type="Node" parent="place_holder_map/interactuables/damagable_box3"]
-script = ExtResource("3_rdx76")
-max_health = 20
-
-[node name="Label" type="Label" parent="place_holder_map/interactuables/damagable_box3"]
-offset_left = -30.0
-offset_top = -18.0
-offset_right = 60.0
-offset_bottom = 5.0
-scale = Vector2(0.661488, 0.661488)
-text = "BREAKABLE"
-
-[node name="damagable_box4" type="StaticBody2D" parent="place_holder_map/interactuables"]
-position = Vector2(593, 412)
-collision_layer = 3
-collision_mask = 3
-
-[node name="Sprite2D" type="Sprite2D" parent="place_holder_map/interactuables/damagable_box4"]
-texture = SubResource("GradientTexture2D_g8nn1")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="place_holder_map/interactuables/damagable_box4"]
-shape = SubResource("RectangleShape2D_rqvhb")
-
-[node name="health_controller" type="Node" parent="place_holder_map/interactuables/damagable_box4"]
-script = ExtResource("3_rdx76")
-max_health = 20
-
-[node name="Label" type="Label" parent="place_holder_map/interactuables/damagable_box4"]
-offset_left = -30.0
-offset_top = -18.0
-offset_right = 60.0
-offset_bottom = 5.0
-scale = Vector2(0.661488, 0.661488)
-text = "BREAKABLE"
-
-[node name="damagable_box2" type="StaticBody2D" parent="place_holder_map/interactuables"]
-position = Vector2(1023, 477)
-collision_layer = 3
-collision_mask = 3
-
-[node name="Sprite2D" type="Sprite2D" parent="place_holder_map/interactuables/damagable_box2"]
-texture = SubResource("GradientTexture2D_g8nn1")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="place_holder_map/interactuables/damagable_box2"]
-shape = SubResource("RectangleShape2D_rqvhb")
-
-[node name="health_controller" type="Node" parent="place_holder_map/interactuables/damagable_box2"]
-script = ExtResource("3_rdx76")
-max_health = 20
-
-[node name="Label" type="Label" parent="place_holder_map/interactuables/damagable_box2"]
-offset_left = -30.0
-offset_top = -18.0
-offset_right = 60.0
-offset_bottom = 5.0
-scale = Vector2(0.661488, 0.661488)
-text = "BREAKABLE"
-
 [node name="health_pack" type="Area2D" parent="place_holder_map/interactuables"]
-position = Vector2(0, 493)
+position = Vector2(-48, 364)
 scale = Vector2(0.4, 0.409091)
 script = ExtResource("4_8qsaw")
 
@@ -254,7 +169,7 @@ offset_bottom = 8.33326
 text = "HEALTH"
 
 [node name="coin" type="Area2D" parent="place_holder_map/interactuables"]
-position = Vector2(-152, 445)
+position = Vector2(33, 316)
 scale = Vector2(0.4, 0.409091)
 script = ExtResource("5_de2wo")
 
@@ -326,19 +241,7 @@ texture = SubResource("GradientTexture2D_1tktg")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="place_holder_map/interactuables/smg_crate"]
 shape = SubResource("RectangleShape2D_bd4uk")
 
-[node name="Label" type="Label" parent="place_holder_map/interactuables/smg_crate"]
-offset_left = -8.97671
-offset_top = -8.41566
-offset_right = 27.0233
-offset_bottom = 14.5843
-scale = Vector2(0.498566, 0.443142)
-text = "SMG"
-
-[node name="enemy" parent="." instance=ExtResource("13_3hv56")]
-position = Vector2(900, 478)
-
 [node name="player" parent="." node_paths=PackedStringArray("spawn_point", "live_counter", "score_counter") instance=ExtResource("6_1krin")]
-position = Vector2(187, 477)
 spawn_point = NodePath("../place_holder_map/spawn_point")
 live_counter = NodePath("../screen_manager/lives")
 score_counter = NodePath("../screen_manager/score")
@@ -386,19 +289,7 @@ script = ExtResource("12_il35j")
 [node name="Sprite2D" type="Sprite2D" parent="screen_manager/b"]
 texture = ExtResource("14_h3frt")
 
-[node name="controls" type="Label" parent="screen_manager"]
-visible = false
-offset_left = 71.0
-offset_top = 156.0
-offset_right = 421.0
-offset_bottom = 309.0
-scale = Vector2(1.39519, 1.38197)
-text = "A,D : horizontal movement
-space: jump
-shift: dash
-features: coyote jump, wall jump, air controll, 
-jump buffer, air jumps & corner climbing
-camera: smoothing and drag"
+[node name="enemy" parent="." instance=ExtResource("13_3hv56")]
 
 [connection signal="body_entered" from="place_holder_map/interactuables/damage_block" to="place_holder_map/interactuables/damage_block" method="_on_body_entered"]
 [connection signal="body_entered" from="place_holder_map/interactuables/health_pack" to="place_holder_map/interactuables/health_pack" method="_on_body_entered"]
