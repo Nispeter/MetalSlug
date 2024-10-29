@@ -11,6 +11,7 @@ Forma parte de los proyectos creados como practica de Godot4 para la Game OFF 20
 - [x] Vida
 - [x] Puntaje
 - [x] Cambio de armas 
+- [x] Movimiento
 - [ ] Melee
 - [ ] GameOver
 - [ ] NewGame
@@ -24,3 +25,5 @@ Forma parte de los proyectos creados como practica de Godot4 para la Game OFF 20
 - [ ] Animacion de ataque
 - [ ] Anim movimiento 
 - [ ] Anim entrada
+- [x] Pistola
+- [x] SMG
