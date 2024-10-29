@@ -17,6 +17,8 @@ Forma parte de los proyectos creados como practica de Godot4 para la Game OFF 20
 - [ ] NewGame
 - [ ] HighScore
 ## Contenido
+- [x] Pistola
+- [x] SMG
 - [ ] Movimeinto de camara
 - [ ] Primer nivel 
 	- [ ] plataformas
@@ -25,5 +27,4 @@ Forma parte de los proyectos creados como practica de Godot4 para la Game OFF 20
 - [ ] Animacion de ataque
 - [ ] Anim movimiento 
 - [ ] Anim entrada
-- [x] Pistola
-- [x] SMG
+

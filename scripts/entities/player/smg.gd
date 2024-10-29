@@ -1,5 +1,7 @@
 extends pistol
 
-@export var shoot_rate_mod: float 
+@export var shoots_before_deactivate: float 
+
+
 
 # TODO: deactivate weapon on timer finish from pistol>weapon

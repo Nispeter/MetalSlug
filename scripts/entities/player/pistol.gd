@@ -16,9 +16,12 @@ func attack():
 func shoot():
 	if can_shoot:
 		var bullet_obj = bullet_sc.instantiate() as bullet 				#TODO: pool bullets instead for better performance
-		bullet_obj.position = position									#FIXME: bullet moving with player, using global_position spawns bullet far away, currently tied to player in tree
-		bullet_obj.set_direction(_shooting_dir)							#NOTE: currently only works for right shooting 
-		get_parent().add_child(bullet_obj)
+		#FIXME: bullet moving with player, using global_position spawns bullet far away, currently tied to player in tree
+		#NOTE: currently only works for right shooting 
+		bullet_obj.global_position = global_position
+		#bullet_obj.global_transform = global_transform
+		bullet_obj.set_direction(_shooting_dir)
+		get_tree().root.add_child(bullet_obj) 
 		
 		can_shoot = false
 		await get_tree().create_timer(shoot_rate).timeout

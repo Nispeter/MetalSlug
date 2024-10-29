@@ -21,7 +21,8 @@ lifetime = 2.0
 shape = SubResource("CircleShape2D_6ldl2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.0703125, 16)
+position = Vector2(0.0319244, 0)
+scale = Vector2(0.0421376, 16)
 texture = SubResource("GradientTexture1D_sqpjv")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

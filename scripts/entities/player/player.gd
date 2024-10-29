@@ -13,7 +13,6 @@ var current_lives : int
 var current_score : int
 
 func _ready():
-	# live_counter = $CanvasGroup/lives							#ALERT: Programatic approach not working 
 	health_controller = $health_controller
 	movement_controller = $movement_controller
 	weapon_controller = $weapon_controller

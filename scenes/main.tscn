@@ -287,9 +287,6 @@ script = ExtResource("12_il35j")
 [node name="Sprite2D" type="Sprite2D" parent="screen_manager/b"]
 texture = ExtResource("14_h3frt")
 
-[node name="bullet_node" type="Node2D" parent="."]
-position = Vector2(231, 327)
-
 [node name="enemy" type="CharacterBody2D" parent="."]
 position = Vector2(897, 432)
 collision_layer = 2

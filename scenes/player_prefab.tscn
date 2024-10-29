@@ -58,7 +58,7 @@ script = ExtResource("7_kldol")
 bullet_sc = ExtResource("6_rp8ml")
 shoot_rate = 0.1
 has_life_time = true
-weapon_life_time = 4.0
+weapon_life_time = 2.0
 
 [node name="Sprite2D2" type="Sprite2D" parent="weapon_controller/smg"]
 position = Vector2(7.49998, 0)
